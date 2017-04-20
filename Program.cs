@@ -27,22 +27,6 @@ namespace IconsSaveRestore
 		#endregion
 
 		#region Helper
-		public static void ConfigureWindowsRegistry()
-		{
-			RegistryKey currentuser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
-
-			var reg = currentuser.OpenSubKey("Software\\IconsSaveRestore", true);
-			if (reg == null)
-			{
-				reg = currentuser.CreateSubKey("Software\\IconsSaveRestore");
-			}
-
-			if (reg.GetValue("LastFile") == null)
-			{
-				reg.SetValue("LastFile", defaultfilename);
-			}
-		}
-
 		public static void SetWindowsRegistry(string value)
 		{
 			RegistryKey currentuser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
