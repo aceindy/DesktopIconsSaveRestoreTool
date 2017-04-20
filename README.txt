@@ -9,3 +9,6 @@ IconsSaveRestore is a command line tool, used to save and restore position of de
 19.06.2016
 	'IconsRestorer' was converted to the console application 'IconsSaveRestore' 
 	by Stanislav Povolotsky <stas.dev[at]povolotsky.info>
+
+21.04.2017
+    'IconsSaveRestore' was converted to a windows application
