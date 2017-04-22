@@ -39,7 +39,7 @@
 			// 
 			// Save_Button
 			// 
-			this.Save_Button.Location = new System.Drawing.Point(15, 32);
+			this.Save_Button.Location = new System.Drawing.Point(176, 32);
 			this.Save_Button.Name = "Save_Button";
 			this.Save_Button.Size = new System.Drawing.Size(75, 23);
 			this.Save_Button.TabIndex = 0;
@@ -49,9 +49,9 @@
 			// 
 			// Load_Button
 			// 
-			this.Load_Button.Location = new System.Drawing.Point(96, 32);
+			this.Load_Button.Location = new System.Drawing.Point(257, 32);
 			this.Load_Button.Name = "Load_Button";
-			this.Load_Button.Size = new System.Drawing.Size(75, 23);
+			this.Load_Button.Size = new System.Drawing.Size(86, 23);
 			this.Load_Button.TabIndex = 1;
 			this.Load_Button.Text = "Restore Icons";
 			this.Load_Button.UseVisualStyleBackColor = true;
@@ -65,7 +65,7 @@
 			// 
 			this.UsedFileName.Location = new System.Drawing.Point(69, 6);
 			this.UsedFileName.Name = "UsedFileName";
-			this.UsedFileName.Size = new System.Drawing.Size(241, 20);
+			this.UsedFileName.Size = new System.Drawing.Size(355, 20);
 			this.UsedFileName.TabIndex = 2;
 			// 
 			// label1
@@ -79,7 +79,7 @@
 			// 
 			// SelectFile
 			// 
-			this.SelectFile.Location = new System.Drawing.Point(316, 6);
+			this.SelectFile.Location = new System.Drawing.Point(349, 32);
 			this.SelectFile.Name = "SelectFile";
 			this.SelectFile.Size = new System.Drawing.Size(75, 23);
 			this.SelectFile.TabIndex = 4;
@@ -91,7 +91,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(399, 68);
+			this.ClientSize = new System.Drawing.Size(434, 62);
 			this.Controls.Add(this.SelectFile);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.UsedFileName);
@@ -99,7 +99,7 @@
 			this.Controls.Add(this.Save_Button);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "IconSaveRestore";
-			this.Text = "UserInterface";
+			this.Text = "Desktop Icons";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
