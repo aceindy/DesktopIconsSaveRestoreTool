@@ -1,4 +1,4 @@
-IconsSaveRestore is a command line tool, used to save and restore position of desktop icons
+IconsSaveRestore is a  tool, used to save and restore position of desktop icons
 
 23.08.2013
 	Original code of 'IconsRestorer' is written by Ivan Yakimov as a part of 
