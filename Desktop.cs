@@ -5,14 +5,14 @@
 // Modified:
 //      19.06.2016 by Stanislav Povolotsky <stas.dev[at]povolotsky.info>
 //                 Removed IsolatedStorageFile to use Storage class in console application
-using Microsoft.Win32;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
 
-namespace IconsSaveRestore.Code
+namespace IconsSaveRestore
 {
     internal class Desktop
     {
@@ -37,15 +37,14 @@ namespace IconsSaveRestore.Code
 
         private int GetIconsNumber()
         {
-            return (int)Win32.SendMessage(_desktopHandle, Win32.LVM_GETITEMCOUNT, IntPtr.Zero, IntPtr.Zero);
+            return (int)Win32.SendMessage(_desktopHandle, Win32.LvmGetitemcount, IntPtr.Zero, IntPtr.Zero);
         }
 
         public NamedDesktopPoint[] GetIconsPositions()
         {
-            uint desktopProcessId;
-            Win32.GetWindowThreadProcessId(_desktopHandle, out desktopProcessId);
+			Win32.GetWindowThreadProcessId(_desktopHandle, out uint desktopProcessId);
 
-            IntPtr desktopProcessHandle = IntPtr.Zero;
+			IntPtr desktopProcessHandle = IntPtr.Zero;
             try
             {
                 desktopProcessHandle = Win32.OpenProcess(Win32.ProcessAccess.VmOperation | Win32.ProcessAccess.VmRead |
@@ -96,7 +95,7 @@ namespace IconsSaveRestore.Code
                     Marshal.SizeOf(typeof(DesktopPoint)),
                     ref numberOfBytes);
 
-                Win32.SendMessage(_desktopHandle, Win32.LVM_GETITEMPOSITION, itemIndex, sharedMemoryPointer);
+                Win32.SendMessage(_desktopHandle, Win32.LvmGetitemposition, itemIndex, sharedMemoryPointer);
 
                 Win32.ReadProcessMemory(desktopProcessHandle, sharedMemoryPointer,
                     Marshal.UnsafeAddrOfPinnedArrayElement(points, 0),
@@ -118,13 +117,13 @@ namespace IconsSaveRestore.Code
                 if (iconIndex == -1)
                 { continue; }
 
-                Win32.SendMessage(_desktopHandle, Win32.LVM_SETITEMPOSITION, iconIndex, Win32.MakeLParam(position.X, position.Y));
+                Win32.SendMessage(_desktopHandle, Win32.LvmSetitemposition, iconIndex, Win32.MakeLParam(position.X, position.Y));
             }
         }
 
         public void Refresh()
         {
-            Win32.PostMessage(_desktopHandle, Win32.WM_KEYDOWN, Win32.VK_F5, 0);
+            Win32.PostMessage(_desktopHandle, Win32.WmKeydown, Win32.VkF5, 0);
 
             Win32.SHChangeNotify(0x8000000, 0x1000, IntPtr.Zero, IntPtr.Zero);
         }

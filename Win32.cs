@@ -5,24 +5,25 @@
 // Modified:
 //      19.06.2016 by Stanislav Povolotsky <stas.dev[at]povolotsky.info>
 //                 Removed IsolatedStorageFile to use Storage class in console application
+
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace IconsSaveRestore.Code
+namespace IconsSaveRestore
 {
     internal static class Win32
     {
-        public const uint WM_KEYDOWN = 0x0100;
+        public const uint WmKeydown = 0x0100;
         
-        public const int VK_F5 = 0x74;
+        public const int VkF5 = 0x74;
 
-        public const uint LVM_GETITEMCOUNT = 0x1000 + 4;
-        public const uint LVM_SETITEMPOSITION = 0x1000 + 15;
-        public const uint LVM_GETITEMPOSITION = 0x1000 + 16;
-        public const uint LVM_GETITEMW = 0x1000 + 75;
+        public const uint LvmGetitemcount = 0x1000 + 4;
+        public const uint LvmSetitemposition = 0x1000 + 15;
+        public const uint LvmGetitemposition = 0x1000 + 16;
+        public const uint LvmGetitemw = 0x1000 + 75;
 
-        public const uint LVIF_TEXT = 0x0001;
+        public const uint LvifText = 0x0001;
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
@@ -30,8 +31,8 @@ namespace IconsSaveRestore.Code
         public enum DesktopWindow
         {
             ProgMan,
-            SHELLDLL_DefViewParent,
-            SHELLDLL_DefView,
+            ShelldllDefViewParent,
+            ShelldllDefView,
             SysListView32
         }
 
@@ -49,12 +50,12 @@ namespace IconsSaveRestore.Code
         
         public static IntPtr GetDesktopWindow(DesktopWindow desktopWindow)
         {
-            IntPtr _ProgMan = GetShellWindow();
-            IntPtr _SHELLDLL_DefViewParent = _ProgMan;
-            IntPtr _SHELLDLL_DefView = FindWindowEx(_ProgMan, IntPtr.Zero, "SHELLDLL_DefView", null);
-            IntPtr _SysListView32 = FindWindowEx(_SHELLDLL_DefView, IntPtr.Zero, "SysListView32", "FolderView");
+            IntPtr progMan = GetShellWindow();
+            IntPtr shelldllDefViewParent = progMan;
+            IntPtr shelldllDefView = FindWindowEx(progMan, IntPtr.Zero, "SHELLDLL_DefView", null);
+            IntPtr sysListView32 = FindWindowEx(shelldllDefView, IntPtr.Zero, "SysListView32", "FolderView");
 
-            if (_SHELLDLL_DefView == IntPtr.Zero)
+            if (shelldllDefView == IntPtr.Zero)
             {
                 EnumWindows((hwnd, lParam) =>
                 {
@@ -66,10 +67,10 @@ namespace IconsSaveRestore.Code
                         IntPtr child = FindWindowEx(hwnd, IntPtr.Zero, "SHELLDLL_DefView", null);
                         if (child != IntPtr.Zero)
                         {
-                            _SHELLDLL_DefViewParent = hwnd;
-                            _SHELLDLL_DefView = child;
-                            _SysListView32 = FindWindowEx(child, IntPtr.Zero, "SysListView32", "FolderView"); ;
-                            return false;
+                            shelldllDefViewParent = hwnd;
+                            shelldllDefView = child;
+                            sysListView32 = FindWindowEx(child, IntPtr.Zero, "SysListView32", "FolderView");
+	                        return false;
                         }
                     }
                     return true;
@@ -79,20 +80,20 @@ namespace IconsSaveRestore.Code
             switch (desktopWindow)
             {
                 case DesktopWindow.ProgMan:
-                    return _ProgMan;
-                case DesktopWindow.SHELLDLL_DefViewParent:
-                    return _SHELLDLL_DefViewParent;
-                case DesktopWindow.SHELLDLL_DefView:
-                    return _SHELLDLL_DefView;
+                    return progMan;
+                case DesktopWindow.ShelldllDefViewParent:
+                    return shelldllDefViewParent;
+                case DesktopWindow.ShelldllDefView:
+                    return shelldllDefView;
                 case DesktopWindow.SysListView32:
-                    return _SysListView32;
+                    return sysListView32;
                 default:
                     return IntPtr.Zero;
             }
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
+        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
 
         public static IntPtr MakeLParam(int wLow, int wHigh)
         {
@@ -248,7 +249,7 @@ namespace IconsSaveRestore.Code
         public enum FreeType
         {
             Decommit = 0x4000,
-            Release = 0x8000,
+            Release = 0x8000
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -264,12 +265,12 @@ namespace IconsSaveRestore.Code
         public static extern int SHChangeNotify(int eventId, int flags, IntPtr item1, IntPtr item2);
         
         [DllImport("user32.dll")]
-        public static extern bool PostMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
+        public static extern bool PostMessage(IntPtr hWnd, UInt32 msg, int wParam, int lParam);
     }
 
     // Some Win32 Struct in CSharp
     [StructLayout(LayoutKind.Sequential)]
-    public struct LVITEM
+    public struct Lvitem
     {
         public UInt32 mask;
         public Int32 iItem;

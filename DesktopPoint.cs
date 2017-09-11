@@ -5,9 +5,10 @@
 // Modified:
 //      19.06.2016 by Stanislav Povolotsky <stas.dev[at]povolotsky.info>
 //                 Removed IsolatedStorageFile to use Storage class in console application
+
 using System.Runtime.InteropServices;
 
-namespace IconsSaveRestore.Code
+namespace IconsSaveRestore
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct DesktopPoint
@@ -17,8 +18,8 @@ namespace IconsSaveRestore.Code
 
         public DesktopPoint(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
     }
 
@@ -30,9 +31,9 @@ namespace IconsSaveRestore.Code
 
         public NamedDesktopPoint(string name, int x, int y)
         {
-            this.Name = name;
-            this.X = x;
-            this.Y = y;
+            Name = name;
+            X = x;
+            Y = y;
         }
     }
 }

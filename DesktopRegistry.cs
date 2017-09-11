@@ -5,14 +5,15 @@
 // Modified:
 //      19.06.2016 by Stanislav Povolotsky <stas.dev[at]povolotsky.info>
 //                 Removed IsolatedStorageFile to use Storage class in console application
-using Microsoft.Win32;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using Microsoft.Win32;
 
-namespace IconsSaveRestore.Code
+namespace IconsSaveRestore
 {
     internal class DesktopRegistry
     {
@@ -24,8 +25,12 @@ namespace IconsSaveRestore.Code
         {
             using (var registry = Registry.CurrentUser.OpenSubKey(KeyName))
             {
-                return registry.GetValueNames().ToDictionary(n => n, n => GetValue(registry, n));
+	            if (registry != null)
+	            {
+		            return registry.GetValueNames().ToDictionary(n => n, n => GetValue(registry, n));
+	            }
             }
+	        return null;
         }
 
         private string GetValue(RegistryKey registry, string valueName)
@@ -50,7 +55,7 @@ namespace IconsSaveRestore.Code
             {
                 foreach (var item in values)
                 {
-                    registry.SetValue(item.Key, GetValue(item.Value));
+	                registry?.SetValue(item.Key, GetValue(item.Value));
                 }
             }
         }

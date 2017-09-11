@@ -1,11 +1,14 @@
-﻿namespace IconsSaveRestore
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace IconsSaveRestore
 {
 	partial class IconSaveRestore
 	{
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+		private IContainer components = null;
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -32,7 +35,7 @@
 			this.Save_Button = new System.Windows.Forms.Button();
 			this.Load_Button = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.UsedFileName = new System.Windows.Forms.TextBox();
+			this.UsedFileName = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.SelectFile = new System.Windows.Forms.Button();
 			this.SuspendLayout();
@@ -65,7 +68,7 @@
 			// 
 			this.UsedFileName.Location = new System.Drawing.Point(69, 6);
 			this.UsedFileName.Name = "UsedFileName";
-			this.UsedFileName.Size = new System.Drawing.Size(355, 20);
+			this.UsedFileName.Size = new System.Drawing.Size(355, 21);
 			this.UsedFileName.TabIndex = 2;
 			// 
 			// label1
@@ -83,7 +86,7 @@
 			this.SelectFile.Name = "SelectFile";
 			this.SelectFile.Size = new System.Drawing.Size(75, 23);
 			this.SelectFile.TabIndex = 4;
-			this.SelectFile.Text = "Select";
+			this.SelectFile.Text = "Browse";
 			this.SelectFile.UseVisualStyleBackColor = true;
 			this.SelectFile.Click += new System.EventHandler(this.SelectFile_Click);
 			// 
@@ -107,11 +110,11 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button Save_Button;
-		private System.Windows.Forms.Button Load_Button;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
-		private System.Windows.Forms.TextBox UsedFileName;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button SelectFile;
+		private Button Save_Button;
+		private Button Load_Button;
+		private OpenFileDialog openFileDialog1;
+		private ComboBox UsedFileName;
+		private Label label1;
+		private Button SelectFile;
 	}
 }

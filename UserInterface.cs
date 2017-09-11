@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using IconsSaveRestore.Code;
-using System.Windows.Forms;
-using Microsoft.Win32;
 using System.IO;
+using System.Windows.Forms;
 
 namespace IconsSaveRestore
 {
@@ -17,28 +12,35 @@ namespace IconsSaveRestore
 			InitializeComponent();
 
 			//Get last used filename from registry
-			UsedFileName.Text = Program.GetWindowsRegistry();
-			openFileDialog1.InitialDirectory = Path.GetDirectoryName(UsedFileName.Text);
-			openFileDialog1.FileName = Path.GetFileName(UsedFileName.Text);
+			var cname = Program.GetWindowsRegistry();
+			openFileDialog1.InitialDirectory = Path.GetDirectoryName(cname);
+			openFileDialog1.FileName = Path.GetFileName(cname);
+
+			if (openFileDialog1.InitialDirectory != null)
+			{
+				var existingFIles = Directory.GetFiles(openFileDialog1.InitialDirectory);
+				UsedFileName.Items.AddRange(existingFIles);
+			}
+			UsedFileName.Text = cname;
 		}
 		#endregion
 
 		#region EventHandlers
 		private void SavePositions_Click(object sender, EventArgs e)
 		{
-			Program.SavePositions(UsedFileName.Text.ToString(), false);
-			Program.SetWindowsRegistry(UsedFileName.Text.ToString());
+			Program.SavePositions(UsedFileName.Text, false);
+			Program.SetWindowsRegistry(UsedFileName.Text);
 		}
 		private void LoadPositions_Click(object sender, EventArgs e)
 		{
-			Program.RestorePositions(UsedFileName.Text.ToString(), false);
-			Program.SetWindowsRegistry(UsedFileName.Text.ToString());
+			Program.RestorePositions(UsedFileName.Text, false);
+			Program.SetWindowsRegistry(UsedFileName.Text);
 		}
-		private void SelectFile_Click(object sender, System.EventArgs e)
+		private void SelectFile_Click(object sender, EventArgs e)
 		{
-			if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (openFileDialog1.ShowDialog() == DialogResult.OK)
 			{
-				UsedFileName.Text = openFileDialog1.FileName.ToString();
+				UsedFileName.Text = openFileDialog1.FileName;
 			}
 		}
 		#endregion
