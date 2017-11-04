@@ -14,9 +14,11 @@ namespace IconsSaveRestore
 	internal class Program
 	{
 		[STAThread]
+
 		#region Main
 
-		private static void Main()
+
+		private static void Main(string[] args)
 		{
 			//Check if ConfigFolder exists, create if it doesn't
 			var configpath = Environment.ExpandEnvironmentVariables(PathWithEnv);
@@ -24,7 +26,7 @@ namespace IconsSaveRestore
 			{
 				Directory.CreateDirectory(configpath);
 			}
-			Application.Run(new IconSaveRestore());
+			Application.Run(new IconSaveRestore(args.Length > 0));
 		}
 		#endregion
 
@@ -86,7 +88,7 @@ namespace IconsSaveRestore
 
 		#region Constants
 		public static string PathWithEnv = @"%USERPROFILE%\Documents\desktopicons";
-		public static string Defaultfilename = @"%USERPROFILE%\Documents\desktopicons\desktop.xml"; 
+		public static string Defaultfilename = @"%USERPROFILE%\Documents\desktopicons\desktop.xml";
 		#endregion
 	}
 }

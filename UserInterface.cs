@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace IconsSaveRestore
@@ -7,10 +8,9 @@ namespace IconsSaveRestore
 	public partial class IconSaveRestore : Form
 	{
 		#region Initialize
-		public IconSaveRestore()
+		public IconSaveRestore(bool SilentRestore)
 		{
 			InitializeComponent();
-
 			//Get last used filename from registry
 			var cname = Program.GetWindowsRegistry();
 			openFileDialog1.InitialDirectory = Path.GetDirectoryName(cname);
@@ -18,10 +18,23 @@ namespace IconsSaveRestore
 
 			if (openFileDialog1.InitialDirectory != null)
 			{
-				var existingFIles = Directory.GetFiles(openFileDialog1.InitialDirectory);
-				UsedFileName.Items.AddRange(existingFIles);
+				try
+				{
+					var existingFIles = Directory.GetFiles(openFileDialog1.InitialDirectory);
+						UsedFileName.Items.AddRange(existingFIles);
+
+				}
+				catch (Exception e)
+				{
+					// ignored
+				}
 			}
 			UsedFileName.Text = cname;
+			if (SilentRestore)
+			{
+				Program.RestorePositions(UsedFileName.Text, false);
+				Environment.Exit(1);
+			}
 		}
 		#endregion
 
