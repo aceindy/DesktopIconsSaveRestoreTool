@@ -12,7 +12,7 @@ namespace IconsSaveRestore
 		{
 			InitializeComponent();
 			//Get last used filename from registry
-			var cname = Program.GetWindowsRegistry();
+			var cname = Environment.ExpandEnvironmentVariables(Program.GetWindowsRegistry());
 			openFileDialog1.InitialDirectory = Path.GetDirectoryName(cname);
 			openFileDialog1.FileName = Path.GetFileName(cname);
 

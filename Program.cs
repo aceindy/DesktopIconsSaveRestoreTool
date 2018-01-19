@@ -87,8 +87,8 @@ namespace IconsSaveRestore
 		#endregion
 
 		#region Constants
-		public static string PathWithEnv = @"%USERPROFILE%\Documents\desktopicons";
-		public static string Defaultfilename = @"%USERPROFILE%\Documents\desktopicons\desktop.xml";
+		public static string PathWithEnv = @"%LOCALAPPDATA%\desktopicons";
+		public static string Defaultfilename = PathWithEnv + @"\desktop.xml";
 		#endregion
 	}
 }
